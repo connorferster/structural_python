@@ -1,28 +1,28 @@
 {
     "LC1": {
-        "DL_factor": 1.4
+        "D_factor": 1.4
     },
     "LC2": {
-        "DL_factor": 1.25,
-        "LL_factor": 1.5
+        "D_factor": 1.25,
+        "L_factor": 1.5
     },
     "LC2a": {
-        "DL_factor": 0.9,
-        "LL_factor": 1.5
+        "D_factor": 0.9,
+        "L_factor": 1.5
     },
     "LC2b": {
-        "DL_factor": 1.25,
-        "LL_factor": 1.5,
-        "SL_factor": 1.0
+        "D_factor": 1.25,
+        "L_factor": 1.5,
+        "S_factor": 1.0
     },
     "LC2c": {
-        "DL_factor": 1.25,
-        "LL_factor": 1.5,
-        "WL_factor": 1.0
+        "D_factor": 1.25,
+        "L_factor": 1.5,
+        "W_factor": 1.0
     },
     "LC2d": {
-        "DL_factor": 0.9,
-        "LL_factor": 1.5,
-        "WL_factor": 0.4
+        "D_factor": 0.9,
+        "L_factor": 1.5,
+        "W_factor": 0.4
     }
 }
