@@ -116,11 +116,39 @@ shear_results = lf.Load(*[
     [beam_results['E'].results.V],
 ])
 
+r0_results = lf.Load(*[
+    [beam_results["D"].R[0]],
+    [beam_results['L'].R[0]],
+    [beam_results['S'].R[0]],
+    [beam_results['W'].R[0]],
+    [beam_results['E'].R[0]],
+])
+
+r1_results = lf.Load(*[
+    [beam_results["D"].R[1]],
+    [beam_results['L'].R[1]],
+    [beam_results['S'].R[1]],
+    [beam_results['W'].R[1]],
+    [beam_results['E'].R[1]],
+])
+
 moment_envelope_max = lf.factored_max(moment_results, load_combinations)
 moment_envelope_min = lf.factored_min(moment_results, load_combinations)
 
 shear_envelope_max = lf.factored_max(shear_results, load_combinations)
 shear_envelope_min = lf.factored_min(shear_results, load_combinations)
+
+r0_max = lf.factored_max(r0_results, load_combinations)
+r1_max = lf.factored_max(r1_results, load_combinations)
+
+r0_min = lf.factored_min(r0_results, load_combinations)
+r1_min = lf.factored_min(r1_results, load_combinations)
+
+st.write("### Factored reactions")
+st.table(
+    {"R1": {"Max": r0_max, "Min": r0_min},
+    "R2": {"Max": r1_max, "Min": r1_min}}
+)
 
 st.write("### Factored Moment Diagram")
 lc_select = st.selectbox("Plot factored load case: ", load_combinations.keys())
