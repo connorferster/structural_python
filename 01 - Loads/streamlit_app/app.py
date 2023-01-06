@@ -138,16 +138,24 @@ moment_envelope_min = lf.factored_min(moment_results, load_combinations)
 shear_envelope_max = lf.factored_max(shear_results, load_combinations)
 shear_envelope_min = lf.factored_min(shear_results, load_combinations)
 
-r0_max = lf.factored_max(r0_results, load_combinations)
-r1_max = lf.factored_max(r1_results, load_combinations)
+r0_max = lf.factored_max(r0_results, load_combinations)[0]
+r1_max = lf.factored_max(r1_results, load_combinations)[0]
 
-r0_min = lf.factored_min(r0_results, load_combinations)
-r1_min = lf.factored_min(r1_results, load_combinations)
+r0_min = lf.factored_min(r0_results, load_combinations)[0]
+r1_min = lf.factored_min(r1_results, load_combinations)[0]
+
+r0_lcidx_max = lf.factored_max_trace(r0_results, load_combinations)[0]
+r1_lcidx_max = lf.factored_max_trace(r1_results, load_combinations)[0]
+
+r0_lcidx_min = lf.factored_min_trace(r0_results, load_combinations)[0]
+r1_lcidx_min = lf.factored_min_trace(r1_results, load_combinations)[0]
+
+lc_labels = [lc for lc in load_combinations.keys()]
 
 st.write("### Factored reactions")
 st.table(
-    {"R1": {"Max": r0_max, "Min": r0_min},
-    "R2": {"Max": r1_max, "Min": r1_min}}
+    {"R1": {"Max": round(r0_max, 1), "Max LC": lc_labels[r0_lcidx_max], "Min": round(r0_min, 1), "Min LC": lc_labels[r0_lcidx_min]},
+    "R2": {"Max": round(r1_max, 1), "Max LC": lc_labels[r1_lcidx_max], "Min": round(r1_min, 1), "Min LC": lc_labels[r1_lcidx_min]}}
 )
 
 st.write("### Factored Moment Diagram")
