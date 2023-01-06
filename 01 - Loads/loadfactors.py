@@ -53,7 +53,7 @@ def factored_max(load: Load, load_combinations: dict) -> Any:
     """
     fl = float('-inf') # acc
     for load_combination, load_factors in load_combinations.items():
-        current_fl = factor_vec_load(
+        current_fl = factor_load(
             np.array(load).T, 
             np.array(load_factors)
         )
@@ -72,7 +72,7 @@ def factored_min(load: Load, load_combinations: dict) -> Any:
     """
     fl = float('inf') # acc
     for load_combination, load_factors in load_combinations.items():
-        current_fl = factor_vec_load(
+        current_fl = factor_load(
             np.array(load).T, 
             np.array(load_factors)
         )
@@ -106,6 +106,27 @@ def factored_min_trace(load: Load, load_combinations: dict) -> Any:
     factored_matrix = get_factored_matrix(load, load_combinations)
     min_trace = np.argmin(factored_matrix, axis=0)
     return min_trace
+
+
+def get_factored_matrix(load: Load, load_combinations: dict) -> np.ndarray:
+    """
+    Returns either a 1D or 2D array representing the loads in 'load' being
+    factored by 'load_combinations'. Each factored load combination is a
+    row in the resulting matrix.
+    
+    If the values in 'load' are scalars, then a 1D matrix is returned
+    If the values in 'load' are 1D arrays, then a 2D matrix is returned
+    """
+    acc = None
+    for idx, (load_combination, load_factors) in enumerate(
+        load_combinations.items()
+    ):
+        current_fact = factor_load(
+            np.array(load).T, np.array(load_factors)
+        )
+        if idx == 0: acc = np.array([current_fact])
+        else: acc = np.concatenate([acc, [current_fact]])
+    return acc
 
 
 def factor_load(load_vector: np.ndarray, factor_vector: np.ndarray) -> float:
